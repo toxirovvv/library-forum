@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import user_login
+from .views import User_login, user_logout, SignUp
 urlpatterns = [
-    path('', user_login, name='user_login')
+    path('', User_login.as_view(), name='user_login'),
+    path('user_sign', SignUp.as_view(), name='SignUp'),
+    path('user_logout', user_logout, name='user_logout')
 ]
