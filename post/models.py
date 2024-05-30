@@ -4,12 +4,13 @@ from user.models import User
 
 class Post(models.Model):
     author = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
+    name = models.CharField(verbose_name='post_name', max_length=150, default='book name')
     image = models.ImageField(upload_to='images/post/', verbose_name='img', default='image.png')
     content = models.TextField(max_length=500, verbose_name='Post contenti')
     created_at = models.DateTimeField(auto_now=True, verbose_name='Post yaratilgan vaqti.')
     
     def __str__(self):
-        return self.author
+        return self.name
     
     class Meta:
         db_table = 'post'
@@ -37,7 +38,7 @@ class Like(models.Model):
     post = models.ForeignKey(Post, related_name='post_like', on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.user
+        return self.post.name
     
     class Meta:
         db_table = 'like'

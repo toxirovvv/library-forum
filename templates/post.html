@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action="{% url "create_post" %}" method="post" enctype="multipart/form-data" class="container mx-auto w-50 m-5">
+    {% csrf_token %}
+
+    <div class="row">
+        
+        <div class="form-outline col-sm">
+            <input type="text" name="name" id="formControlLg" class="form-control" />
+            <label class="form-label" for="formControlLg">👆Book Name</label>
+          </div>
+
+      <div class="form-outline col-sm">
+
+        <label for="image">
+            <input type="file" name="image">
+        </label>
+        <label class="form-label" for="formControlReadonly">👆Book image</label>
+
+      </div>
+
+      <div class="form-outline" data-mdb-input-init>
+        <textarea class="form-control" name="content" id="textAreaExample" rows="4"></textarea>
+        <label class="form-label" for="textAreaExample">👆book information</label>
+      </div>
+
+    </div>
+
+    <button type="submit" class="btn btn-success">Add Post</button>
+
+</form>
+
+{% endblock content %}
+
+
