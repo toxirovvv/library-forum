@@ -8,11 +8,14 @@
     <!--Start section-->
       <div class="row">
         {% for post in posts %}
-      
+        
         <div class="card mx-auto w-50 h-25 m-2 col-md-auto" style="width: 18rem;">
           <img src="{{post.image.url}}" width="200px" height="400px" class="card-img-top" alt="...">
-          <div class="card-body">
-            <a href="{% url "like_post" post.id %}" class="focus-ring focus-ring-danger">❤️{{post.post_like.count}}</a>
+          <div class="card-body"> 
+            <div class="d-flex flex-column">
+              <a href="{% url "public_profile" post.author.pk %}">{{post.author.username}}</a>
+              <a href="{% url "like_post" post.id %}" class="focus-ring focus-ring-danger">❤️{{post.post_like.count}}</a>
+            </div>
             <h5 class="card-title">{{post}}</h5>
             <p class="card-text">{{post.content}}</p>
             <a href="{% url "single" post.id %}" class="btn btn-primary">Batafsil</a>

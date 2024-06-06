@@ -22,10 +22,14 @@ class User(AbstractUser):
         verbose_name_plural = "Users"
     
 class Followers(models.Model):
-    kuzataman = models.ManyToManyField(User, related_name='watchers')
-    user = models.ForeignKey(User, related_name='Followers', on_delete=models.CASCADE) 
-        
+    kuzataman = models.ForeignKey(User, related_name='watchers', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='followers', on_delete=models.CASCADE)
+
     class Meta:
         db_table = 'follower'
         verbose_name = "Follower"
-        verbose_name_plural = "Followers"   
+        verbose_name_plural = "Followers"
+        unique_together = ['kuzataman', 'user']
+
+    def __str__(self):
+        return f"{self.user} follows {self.kuzataman}"

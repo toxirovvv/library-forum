@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--Main layout-->
+<main class="my-5">
+    <div class="container">    
+    <!--Start section-->
+      <div class="row">
+        {% for result in result %}
+        
+        <div class="card mx-auto w-50 h-25 m-2 col-md-auto" style="width: 18rem;">
+          <img src="{{result.image.url}}" width="200px" height="400px" class="card-img-top" alt="...">
+          <div class="card-body"> 
+            <div class="d-flex flex-column">
+              <a href="{% url "public_profile" result.author.pk %}">{{result.author.username}}</a>
+              <a href="{% url "like_post" result.id %}" class="focus-ring focus-ring-danger">❤️{{result.post_like.count}}</a>
+            </div>
+            <h5 class="card-title">{{result}}</h5>
+            <p class="card-text">{{result.content}}</p>
+            <a href="{% url "single" result.id %}" class="btn btn-primary">Batafsil</a>
+          </div>
+        </div>
+      
+      {% endfor %}
+
+
+    </main>
+    {% endblock content %}    

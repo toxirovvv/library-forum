@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--Main layout-->
+<main class="my-5">
+    <div class="container">    
+    <!--Start section-->
+      <div class="row">
+        {% for like in likes %}
+        
+        <div class="card mx-auto w-50 h-25 m-2 col-md-auto" style="width: 18rem;">
+          <img src="{{like.post.image.url}}" width="200px" height="400px" class="card-img-top" alt="...">
+          <div class="card-body"> 
+            <div class="d-flex flex-column">
+              <a href="{% url "public_profile" like.post.author.pk %}">{{like.author.username}}</a>
+            </div>
+            <h5 class="card-title">{{like}}</h5>
+            <p class="card-text">{{like.content}}</p>
+            <a href="{% url "single" like.pk %}" class="btn btn-primary">Batafsil</a>
+          </div>
+        </div>
+      
+      {% endfor %}
+
+
+    </main>
+    {% endblock content %}    

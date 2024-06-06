@@ -26,7 +26,7 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now=True, verbose_name='Comment yaratilgan vaqti.')
     
     def __str__(self):
-        return self.user
+        return self.user.username
     
     class Meta:
         db_table = 'comment'
@@ -44,3 +44,4 @@ class Like(models.Model):
         db_table = 'like'
         verbose_name = "Like"
         verbose_name_plural = "Likes"
+        unique_together = ('user', 'post')

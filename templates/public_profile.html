@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="vh-100">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-12 col-xl-4">
+                <div class="card" style="border-radius: 15px;">
+                    <div class="card-body text-center">
+                        <h4 class="mb-2">{{ profile.username }}</h4>
+                        <p class="text-muted mb-4">{{ profile.first_name }} <span class="mx-2">|</span> <a href="#!">Library-forum</a></p>
+                        <div class="mb-4 pb-2">
+                            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary btn-floating">
+                                <i class="fab fa-facebook-f fa-lg"></i>
+                            </button>
+                            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary btn-floating">
+                                <i class="fab fa-twitter fa-lg"></i>
+                            </button>
+                            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary btn-floating">
+                                <i class="fab fa-skype fa-lg"></i>
+                            </button>
+                        </div>
+                        {% if profile != request.user %}
+                            {% if is_following %}
+                                <form action="{% url 'unfollow_user' user_id=profile.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Unfollow</button>
+                                </form>
+                            {% else %}
+                                <form action="{% url 'follow_user' user_id=profile.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-primary">Follow</button>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                        <div class="d-flex justify-content-center m-2 gap-3 text-center">
+                            <div>
+                                <p class="mb-2 h5">{{ profile.watchers.count }}</p>
+                                <p class="text-muted mb-0">Followers</p>
+                            </div>
+                            <div>
+                                <p class="mb-2 h5">{{ profile.followers.count }}</p>
+                                <p class="text-muted mb-0">Following</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+
+
+
+

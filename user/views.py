@@ -1,9 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password
+from .models import Followers, User
 user = get_user_model()
+
 
 class User_login(View):
     
@@ -64,3 +66,26 @@ def user_logout(request):
 
 def profile(request):
     return render(request, 'profile.html')
+
+def public_profile(request, pk):
+    profile = user.objects.get(id=pk) 
+    is_following = Followers.objects.filter(user=request.user, kuzataman=profile).exists()
+    context = {
+        'profile': profile,
+        'is_following': is_following
+    }
+    return render(request, 'public_profile.html', context)
+
+
+
+
+def follow_user(request, user_id):
+    user_to_follow = get_object_or_404(User, id=user_id)
+    Followers.objects.get_or_create(user=request.user, kuzataman=user_to_follow)
+    return redirect('public_profile', pk=user_id)
+
+def unfollow_user(request, user_id):
+    user_to_unfollow = get_object_or_404(User, id=user_id)
+    Followers.objects.filter(user=request.user, kuzataman=user_to_unfollow).delete()
+    return redirect('public_profile', pk=user_id)
+
